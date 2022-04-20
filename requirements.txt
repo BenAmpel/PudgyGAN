@@ -2,3 +2,4 @@ matplotlib==3.5.1
 pickle5==0.0.12
 streamlit>=1.8.1
 keras==2.6.0
+tensorflow==2.6.0
