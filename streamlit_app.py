@@ -57,7 +57,7 @@ def main():
         st.subheader("Collection Method: OpenSea API, store each image in a non-relational database (e.g., MongoDB). ")
         st.write(":heavy_minus_sign:" * 34)
         st.header("Data Augmentation")
-        DataAug = plt.imread('./images/DataAug.jpg')
+        DataAug = plt.imread('./images/DataAug.JPG')
         st.image(DataAug, width=800)
         st.subheader("To increase the size of our dataset, extant literature suggests augmenting our images (Khalifa et al., 2021). ")
         st.subheader("There are three types of classical augmentation we can perform on our dataset: (1) geometric, (2) photometric, and (3) random erasing.")
