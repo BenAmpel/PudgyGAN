@@ -3,10 +3,6 @@ import numpy as np
 import pickle
 import matplotlib.pyplot as plt
 from IPython.core.display import display, HTML
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # or any {'0', '1', '2'}
-logging.getLogger('tensorflow').setLevel(logging.FATAL)
-import tensorflow as tf
 from tensorflow.keras.models import Model, load_model
 import tensorflow.keras.backend as K
 from util import *
