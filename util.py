@@ -4,7 +4,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pickle
 import os
-
 #indices = [i for i in range(0, len(images))]
 noise_size = 100
 

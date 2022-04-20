@@ -6,6 +6,7 @@ from IPython.core.display import display, HTML
 from tensorflow.keras.models import Model, load_model
 import tensorflow.keras.backend as K
 from util import *
+from io import BytesIO
 
 #@st.experimental_memo
 @st.experimental_singleton
@@ -78,6 +79,19 @@ def main():
         st.header("Deep Convolutional GAN (DCGAN)")
         DCGAN = plt.imread('./images/DCGAN.png')
         st.image(DCGAN, width=1200)
+        st.write(":heavy_minus_sign:" * 34)
+
+        st.header("Spectral Normalized DCGAN")
+        st.subheader("The DCGAN suffers from stability issues in the discriminator.")
+        st.subheader("Spectral normalization is introduced to reduce the stability issues (Miyato et al., 2018)")
+        st.subheader("Spectral normalization replaces every weight of a layer with the weight divided by the standard deviation of the weight.")
+        SNimg = plt.imread('./images/SN.png')
+        st.image(SNimg, width=1200)
+        st.subheader("This makes the discriminator Lipschitz continuous, meaning that each function always falls within certain bounds, normalizing the discriminator training process")
+        st.write(":heavy_minus_sign:" * 34)
+
+        st.header("Vision Transformer (ViT) GAN")
+        st.write(":heavy_minus_sign:" * 34)
     #-----------------------------------------------------------
     if page == "Experiments & Results":
         st.header("Experiments & Results")
@@ -92,12 +106,12 @@ def main():
         st.header("Use the button below to make your own automatically generated Pudgy Penguin!")
         submit = st.button('Click To Generate Pudgy')
         if submit:
-            PudgyImage = show_generator_results(generator_network)
-            st.pyplot(PudgyImage)
-
-
-
-
+            fig = show_generator_results(generator_network)
+            buf = BytesIO()
+            fig.savefig(buf, format="png")
+            st.image(buf, width=5000)
+            #st.pyplot(PudgyImage)
+    #-----------------------------------------------------------
 
 if __name__ == "__main__":
     main()
