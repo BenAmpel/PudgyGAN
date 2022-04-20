@@ -8,7 +8,7 @@ import tensorflow.keras.backend as K
 from util import *
 
 #@st.experimental_memo
-@st.cache(allow_output_mutation=True)
+@st.experimental_singleton
 def load_gen():
     model = load_model('generator')
     model.summary()  # included to make it visible when model is reloaded
