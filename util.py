@@ -26,7 +26,7 @@ def get_real_samples(batch_size):
 
 def show_generator_results(generator_network):
     for k in range(1):
-        fig = plt.figure(figsize=(224, 224))
+        fig = plt.figure(figsize=(28, 28))
         fake_samples = get_fake_samples(generator_network, 9, noise_size)
         fake_samples = (fake_samples+1.0)/2.0
         q = 1
