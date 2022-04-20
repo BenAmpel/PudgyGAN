@@ -1,16 +1,10 @@
 import streamlit as st
 import numpy as np
-import pandas as pd
 import pickle
-
 import matplotlib.pyplot as plt
 
-import seaborn as sns
-import requests
-
 from IPython.core.display import display, HTML
-from tensorflow import keras
-from tensorflow.keras.models import Sequential, Model, load_model, save_model
+from tensorflow.keras.models import Model, load_model
 from util import *
 
 st.set_page_config(
