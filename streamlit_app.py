@@ -1,5 +1,6 @@
 import streamlit as st
 import numpy as np
+import pandas as pd
 import pickle
 import matplotlib.pyplot as plt
 from IPython.core.display import display, HTML
@@ -28,10 +29,10 @@ def main():
     #img = plt.imread('./images/Eller1.png')
     #st.sidebar.image(img)
     st.title('PudgyGAN')
-    st.write("The final project for MIS 596A, conducted by Benjamin Ampel and Ryan Ott")
+    st.subheader("The final project for MIS 596A, conducted by Benjamin Ampel and Ryan Ott")
     img1 = plt.imread('./images/Pudgy.jpg')
     st.image(img1, width=224)
-    page = st.selectbox("Choose a page", ["Homepage", "Introduction", "Dataset & Pre-Processing", "PudgyGAN Architecture", "Experiments & Results", "Visual Comparisons", "Future Directions", "Generate Pudgy"])
+    page = st.selectbox("Choose a page", ["Homepage", "Introduction", "Dataset & Pre-Processing", "PudgyGAN Architecture", "Experiments & Results", "Visual Comparisons", "Generate Pudgy"])
     #-----------------------------------------------------------
     if page == "Homepage":
         st.header("Welcome to the PudgyGAN website")
@@ -91,26 +92,59 @@ def main():
         st.write(":heavy_minus_sign:" * 34)
 
         st.header("Vision Transformer (ViT) GAN")
+        TransGAN = plt.imread('./images/TransGAN.png')
+        st.image(TransGAN, width=1200)
+        st.subheader("Replacing the Convolutional layers with Transformer ones further stabilizes the training process (Jiang et al., 2021)")
+        st.subheader("The Transformer generator gradually increases the feature map at each stage.")
+        st.subheader("The Transformer discriminator gradually looks at patches of the images to capture global and local contexts to create it's real/fake decision")
         st.write(":heavy_minus_sign:" * 34)
     #-----------------------------------------------------------
     if page == "Experiments & Results":
         st.header("Experiments & Results")
+        st.subheader("We empirically tested the three types of GANs with our dataset using the metrics inception score (IS) and Fréchet Inception Distance (FID)")
+        st.subheader("IS measures the image quality of a model using the pre-trained image model Inception V3. Generated images that are sharp (not blurry) and with a single object will produce high IS scores (Barratt & Sharma, 2018). Higher scores are better.")
+        st.subheader("FID captures the similarity of generated images to real ones (Heusel et al., 2017). Lower scores are better.")
+        st.write(":heavy_minus_sign:" * 34)
+
+        st.header("Results Table")
+        data = [['DCGAN', 5.13, 24.10], ['Spectral DCGAN', 7.45, 19.34], ['Transformer GAN', 8.17, 12.97]]
+        df = pd.DataFrame(data, columns = ['Model', 'IS', 'FID'])
+        st.table(df)
+        st.write(":heavy_minus_sign:" * 34)
+
+        st.subheader("From the table, we see the adding spectral normalization improves upon the standard DCGAN in both tracked measures.")
+        st.subheader("We also see that by replacing the convolutional layers with a transformer, the model similarly improves.")
+
     #-----------------------------------------------------------
     if page == "Visual Comparisons":
         st.header("Visual Comparisons")
-    #-----------------------------------------------------------
-    if page == "Future Directions":
-        st.header("Future Directions")
+        st.subheader("We also visually show the differences from each model below.")
+        st.write(":heavy_minus_sign:" * 34)
+
+        st.subheader("DCGAN")
+        DCGAN_output = plt.imread('./images/DCGAN_output.JPG')
+        st.image(DCGAN_output, width=1200)
+        st.subheader("DCGAN gets basic shapes (e.g., eyes), but cannot get other features")
+        st.write(":heavy_minus_sign:" * 34)
+
+        st.subheader("Spectral Normalized GAN")
+        SNGAN_output = plt.imread('./images/SNGAN_output.JPG')
+        st.image(SNGAN_output, width=1200)
+        st.subheader("Spectral Normalized GAN begins to get general shapes and hats, but still very messy")
+        st.write(":heavy_minus_sign:" * 34)
+
+        st.subheader("Vision Transformer (ViT) GAN")
+        ViTGAN_output = plt.imread('./images/ViTGAN_output.JPG')
+        st.image(ViTGAN_output, width=1200)
+        st.subheader("ViTGAN excels at getting shapes like hats and sunglasses")
+        st.write(":heavy_minus_sign:" * 34)
     #-----------------------------------------------------------
     if page == "Generate Pudgy":
-        st.header("Use the button below to make your own automatically generated Pudgy Penguin!")
+        st.header("Use the button below to make your own generated Pudgy Penguin!")
         submit = st.button('Click To Generate Pudgy')
         if submit:
-            fig = show_generator_results(generator_network)
-            buf = BytesIO()
-            fig.savefig(buf, format="png")
-            st.image(buf, width=5000)
-            #st.pyplot(PudgyImage)
+            PudgyImage = show_generator_results(generator_network)
+            st.pyplot(PudgyImage)
     #-----------------------------------------------------------
 
 if __name__ == "__main__":
