@@ -10,6 +10,9 @@ os.environ["CUDA_VISIBLE_DEVICES"]="-1"
 from keras.models import Model, load_model
 from util import *
 
+st.cache(suppress_st_warning=True)  # 👈 Changed this
+generator_network = load_model('generator')
+
 st.set_page_config(
     page_title = "PudgyGAN",
     initial_sidebar_state="collapsed"
@@ -33,7 +36,6 @@ def main():
         st.header("Use the button below to make your own automatically generated Pudgy Penguin!")
         submit = st.button('Click To Generate Pudgy')
         if submit:
-            generator_network = load_model('generator')
             PudgyImage = show_generator_results(generator_network)
             st.pyplot(PudgyImage)
 
