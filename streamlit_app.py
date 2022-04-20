@@ -4,6 +4,9 @@ import pickle
 import matplotlib.pyplot as plt
 
 from IPython.core.display import display, HTML
+import os
+os.environ["CUDA_VISIBLE_DEVICES"]="-1"
+import tensorflow as tf
 from tensorflow.keras.models import Model, load_model
 from util import *
 

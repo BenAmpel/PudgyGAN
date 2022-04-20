@@ -3,6 +3,9 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import pickle
+import os
+os.environ["CUDA_VISIBLE_DEVICES"]="-1"
+import tensorflow as tf
 
 #indices = [i for i in range(0, len(images))]
 noise_size = 100
