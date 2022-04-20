@@ -20,7 +20,7 @@ def main():
     st.title('PudgyGAN')
     img1 = plt.imread('./images/Pudgy.jpg')
     st.image(img1, width=224)
-    page = st.selectbox("Choose a page", ["Homepage", "Generate Pudgy", "Exploit Source Code Labeler", "Exploit File Analysis", "Time Series Charts", "Prominent Hackers", "NLP Analysis (Beta)"])
+    page = st.selectbox("Choose a page", ["Homepage", "Generate Pudgy"])
     #-----------------------------------------------------------
     if page == "Homepage":
         st.header("Welcome to the PudgyGAN website")
@@ -33,5 +33,6 @@ def main():
             generator_network = load_model('generator')
             PudgyImage = show_generator_results(generator_network)
             st.pyplot(PudgyImage)
+
 if __name__ == "__main__":
     main()
